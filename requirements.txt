@@ -1,0 +1,12 @@
+langgraph
+langchain_core
+langchain_community
+python-dotenv
+langchain_openai
+langchain_groq
+tavily-python
+arxiv
+wikipedia
+langgraph-cli[inmem]
+langchain
+faiss-cpu
