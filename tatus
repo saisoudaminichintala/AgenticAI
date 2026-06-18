@@ -1,0 +1,901 @@
+[1mdiff --git a/4-AgenticRAG/5-IterativeSelfRelection.ipynb b/4-AgenticRAG/5-IterativeSelfRelection.ipynb[m
+[1mindex cb3f141..2172f74 100644[m
+[1m--- a/4-AgenticRAG/5-IterativeSelfRelection.ipynb[m
+[1m+++ b/4-AgenticRAG/5-IterativeSelfRelection.ipynb[m
+[36m@@ -29,22 +29,10 @@[m
+   },[m
+   {[m
+    "cell_type": "code",[m
+[31m-   "execution_count": 1,[m
+[32m+[m[32m   "execution_count": null,[m
+    "id": "527d7aff",[m
+    "metadata": {},[m
+[31m-   "outputs": [[m
+[31m-    {[m
+[31m-     "name": "stderr",[m
+[31m-     "output_type": "stream",[m
+[31m-     "text": [[m
+[31m-      "/tmp/ipykernel_10376/4119248320.py:5: DeprecationWarning: `langchain-community` is being sunset and is no longer actively maintained. See https://github.com/langchain-ai/langchain-community/issues/674 for details and migration guidance toward standalone integration packages.\n",[m
+[31m-      "  from langchain_community.vectorstores import FAISS\n",[m
+[31m-      "/workspaces/AgenticAI/.venv/lib/python3.13/site-packages/tqdm/auto.py:21: TqdmWarning: IProgress not found. Please update jupyter and ipywidgets. See https://ipywidgets.readthedocs.io/en/stable/user_install.html\n",[m
+[31m-      "  from .autonotebook import tqdm as notebook_tqdm\n",[m
+[31m-      "USER_AGENT environment variable not set, consider setting it to identify your requests.\n"[m
+[31m-     ][m
+[31m-    }[m
+[31m-   ],[m
+[32m+[m[32m   "outputs": [],[m
+    "source": [[m
+     "import os\n",[m
+     "from  typing import List , Annotated, TypedDict, Sequence, Literal\n",[m
+[36m@@ -70,21 +58,10 @@[m
+   },[m
+   {[m
+    "cell_type": "code",[m
+[31m-   "execution_count": 8,[m
+[32m+[m[32m   "execution_count": null,[m
+    "id": "7bfffd8b",[m
+    "metadata": {},[m
+[31m-   "outputs": [[m
+[31m-    {[m
+[31m-     "data": {[m
+[31m-      "text/plain": [[m
+[31m-       "True"[m
+[31m-      ][m
+[31m-     },[m
+[31m-     "execution_count": 8,[m
+[31m-     "metadata": {},[m
+[31m-     "output_type": "execute_result"[m
+[31m-    }[m
+[31m-   ],[m
+[32m+[m[32m   "outputs": [],[m
+    "source": [[m
+     "import os\n",[m
+     "from dotenv import load_dotenv\n",[m
+[36m@@ -95,7 +72,7 @@[m
+   },[m
+   {[m
+    "cell_type": "code",[m
+[31m-   "execution_count": 9,[m
+[32m+[m[32m   "execution_count": null,[m
+    "id": "69f1d971",[m
+    "metadata": {},[m
+    "outputs": [],[m
+[36m@@ -107,22 +84,10 @@[m
+   },[m
+   {[m
+    "cell_type": "code",[m
+[31m-   "execution_count": 10,[m
+[32m+[m[32m   "execution_count": null,[m
+    "id": "43146b22",[m
+    "metadata": {},[m
+[31m-   "outputs": [[m
+[31m-    {[m
+[31m-     "data": {[m
+[31m-      "text/plain": [[m
+[31m-       "[Document(metadata={'source': 'https://docs.langchain.com/oss/python/langchain/overview', 'title': 'LangChain overview - Docs by LangChain', 'description': 'LangChain provides create_agent: a minimal, highly configurable agent harness. Compose exactly the agent your use case needs from model, tools, prompt, and middleware.', 'language': 'en'}, page_content='LangChain overview - Docs by LangChainDocumentation IndexFetch the complete documentation index at: /llms.txtUse this file to discover all available pages before exploring further.Skip to main contentDocs by LangChain home pageBuildSearch...⌘KAsk AIGitHubTry LangSmithTry LangSmithSearch...NavigationLangChain overviewOverviewDeep AgentsLangChainLangGraphIntegrationsLearnReferenceContributePythonOverviewGet startedInstallQuickstartChangelogPhilosophyCore componentsAgentsModelsMessagesToolsShort-term memoryEvent streamingStreamingStructured outputMiddlewareOverviewPrebuilt middlewareCustom middlewareFrontendOverviewPatternsIntegrationsAdvanced usageGuardrailsRuntimeContext engineeringModel Context Protocol (MCP)Human-in-the-loopMulti-agentRetrievalLong-term memoryAgent developmentLangSmith StudioTestAgent Chat UIDeploy with LangSmithDeploymentObservabilityOn this page Create an agent Core benefitsLangChain overviewCopy pageLangChain provides create_agent: a minimal, highly configurable agent harness. Compose exactly the agent your use case needs from model, tools, prompt, and middleware.Copy pageAgent = Model + Harness. LangChain provides create_agent: a minimal, highly configurable harness. The harness is everything around the model loop: the prompt, the tools, and any middleware that shapes behavior. Start with the primitives and compose exactly what your use case needs. Supports OpenAI, Anthropic, Google, and more.\\nLangChain vs. LangGraph vs. Deep AgentsStart with Deep Agents for a “batteries-included” agent with features like automatic context compression, a virtual filesystem, and subagent-spawning. Deep Agents are built on LangChain agents which you can also use directly.Use LangChain (create_agent) for a highly customizable harness, easily tailored to your use case and data.Use LangGraph, our low-level orchestration framework, for advanced needs combining deterministic and agentic workflows.Use LangSmith to trace, debug, and evaluate agents built with any of these frameworks. Follow the tracing quickstart to get set up. We recommend you also set up LangSmith Engine which monitors your traces, detects issues, and proposes fixes.\\n\\u200b Create an agent\\nThis example demonstrates how to create a simple LangChain agent with a custom tool:\\nOpenAIGoogle GeminiClaude (Anthropic)OpenRouterFireworksBasetenOllamaAzureAWS BedrockHuggingFace# pip install -qU langchain \"langchain[openai]\"\\nfrom langchain.agents import create_agent\\n\\ndef get_weather(city: str) -> str:\\n    \"\"\"Get weather for a given city.\"\"\"\\n    return f\"It\\'s always sunny in {city}!\"\\n\\nagent = create_agent(\\n    model=\"openai:gpt-5.5\",\\n    tools=[get_weather],\\n    system_prompt=\"You are a helpful assistant\",\\n)\\n\\nresult = agent.invoke(\\n    {\"messages\": [{\"role\": \"user\", \"content\": \"What\\'s the weather in San Francisco?\"}]}\\n)\\nprint(result[\"messages\"][-1].content_blocks)\\n\\nSee the Installation instructions and Quickstart guide to get started building your own agents and applications with LangChain.\\nUse LangSmith to trace requests, debug agent behavior, and evaluate outputs. Set LANGSMITH_TRACING=true and your API key to get started.\\n\\u200b Core benefits\\nStandard model interfaceUse one interface for chat models, embeddings, and more across providers. Switch models with minimal code changes and keep your application portable as requirements evolve.Learn moreHighly configurable harnessStart with create_agent as a minimal harness and add capabilities incrementally through middleware. Compose only what your use case needs, from guardrails and retries to routing and custom tool policies.Learn moreBuilt on top of LangGraphLangChain’s agents are built on top of LangGraph. This allows us to take advantage of LangGraph’s durable execution, human-in-the-loop support, persistence, and more.Learn moreDebug with LangSmithInspect traces, tool calls, state transitions, and latency in one place. Find failure modes, evaluate quality, and improve agent behavior with execution data.Learn more\\n\\nConnect these docs to Claude, VSCode, and more via MCP for real-time answers.Edit this page on GitHub or file an issue.Was this page helpful?YesNoInstall LangChainNext⌘IDocs by LangChain home pagegithubxlinkedinyoutubeResourcesForumChangelogLangChain AcademyContact SalesCompanyHomeTrust CenterCareersBloggithubxlinkedinyoutube\\n'),\n",[m
+[31m-       " Document(metadata={'source': 'https://docs.langchain.com/oss/python/integrations/providers/overview', 'title': 'LangChain Python integrations - Docs by LangChain', 'description': 'Integrate with providers using LangChain Python.', 'language': 'en'}, page_content='LangChain Python integrations - Docs by LangChainDocumentation IndexFetch the complete documentation index at: /llms.txtUse this file to discover all available pages before exploring further.Skip to main contentDocs by LangChain home pageBuildSearch...⌘KAsk AIGitHubTry LangSmithTry LangSmithSearch...NavigationLangChain Python integrationsOverviewDeep AgentsLangChainLangGraphIntegrationsLearnReferenceContributePythonLangChain integrationsAll providersPopular ProvidersOpenAIAnthropicGoogleAWSNVIDIAHugging FaceMicrosoftOllamaGroqFireworksIntegrations by componentChat modelsTools and toolkitsMiddlewareSandboxesBackendsCheckpointersRetrieversText splittersEmbedding modelsVector storesDocument loadersLangChain Python integrationsCopy pageIntegrate with providers using LangChain Python.Copy pageLangChain offers an extensive ecosystem with 1000+ integrations across chat & embedding models, tools & toolkits, document loaders, vector stores, and more.\\nA provider is a company or platform that hosts AI models and exposes them through an API (e.g., OpenAI, Anthropic, Google). Many providers have a dedicated langchain-<provider> package that implements one or more of LangChain’s standard interfaces—chat models, embedding models, vector stores, and more—giving you a consistent API regardless of the underlying provider. Install the package, pick a model name, and swap providers without changing your code.\\nChat modelsEmbedding modelsTools and toolkitsMiddlewareCheckpointersSandboxes\\nTo see a full list of integrations by component type, refer to the categories in the sidebar.\\nFor a conceptual overview of how providers and models work in LangChain, including how to find model names, use new models immediately, and work with routers—see Providers and models.\\n\\u200bPopular providers\\nProviderPackageDownloadsLatest versionJS/TS supportOpenAIlangchain-openai✅Google (Vertex AI)langchain-google-vertexai✅Anthropic (Claude)langchain-anthropic✅Google (GenAI)langchain-google-genai✅AWSlangchain-aws✅Ollamalangchain-ollama✅Databricksdatabricks-langchain✅Chromalangchain-chroma✅Groqlangchain-groq✅Huggingfacelangchain-huggingface✅Azure AIlangchain-azure-ai✅MongoDBlangchain-mongodb✅LiteLLMlangchain-litellmN/AFireworkslangchain-fireworks✅MistralAIlangchain-mistralai✅Coherelangchain-cohere✅Pineconelangchain-pinecone✅xAI (Grok)langchain-xai✅DeepSeeklangchain-deepseek✅Tavilylangchain-tavily✅Qdrantlangchain-qdrant✅Nvidia AI Endpointslangchain-nvidia-ai-endpoints❌Milvuslangchain-milvus✅IBMlangchain-ibm✅Elasticsearchlangchain-elasticsearch✅Perplexitylangchain-perplexity✅DataStax Astra DBlangchain-astradb✅OpenRouterlangchain-openrouter❌Redislangchain-redis✅Togetherlangchain-together✅MCP Toolbox (Google)toolbox-langchain❌Google (Community)langchain-google-community❌Nebiuslangchain-nebius❌Unstructuredlangchain-unstructured✅Neo4Jlangchain-neo4j✅Weaviatelangchain-weaviate✅Sambanovalangchain-sambanova❌Doclinglangchain-docling❌Graph RAGlangchain-graph-retriever❌Exalangchain-exa✅Cerebraslangchain-cerebras✅\\n\\u200bAll providers\\nSee all providers or search for a provider using the search field.\\nIf you’d like to contribute an integration, see the contributing guide.\\n\\nConnect these docs to Claude, VSCode, and more via MCP for real-time answers.Edit this page on GitHub or file an issue.Was this page helpful?YesNoAll LangChain Python integration providersNext⌘IDocs by LangChain home pagegithubxlinkedinyoutubeResourcesForumChangelogLangChain AcademyContact SalesCompanyHomeTrust CenterCareersBloggithubxlinkedinyoutube\\n')]"[m
+[31m-      ][m
+[31m-     },[m
+[31m-     "execution_count": 10,[m
+[31m-     "metadata": {},[m
+[31m-     "output_type": "execute_result"[m
+[31m-    }[m
+[31m-   ],[m
+[32m+[m[32m   "outputs": [],[m
+    "source": [[m
+     "### 1. Document Processing\n",[m
+     "\n",[m
+[36m@@ -143,24 +108,10 @@[m
+   },[m
+   {[m
+    "cell_type": "code",[m
+[31m-   "execution_count": 11,[m
+[32m+[m[32m   "execution_count": null,[m
+    "id": "ad460fa5",[m
+    "metadata": {},[m
+[31m-   "outputs": [[m
+[31m-    {[m
+[31m-     "data": {[m
+[31m-      "text/plain": [[m
+[31m-       "[Document(id='22568958-e575-4b00-b6ea-406e143cabfc', metadata={'source': 'https://docs.langchain.com/oss/python/integrations/providers/overview', 'title': 'LangChain Python integrations - Docs by LangChain', 'description': 'Integrate with providers using LangChain Python.', 'language': 'en'}, page_content='A provider is a company or platform that hosts AI models and exposes them through an API (e.g., OpenAI, Anthropic, Google). Many providers have a dedicated langchain-<provider> package that implements one or more of LangChain’s standard interfaces—chat models, embedding models, vector stores, and more—giving you a consistent API regardless of the underlying provider. Install the package, pick a model name, and swap providers without changing your code.'),\n",[m
+[31m-       " Document(id='ca4c8ddf-bbbd-4420-a25e-964a4aa02e27', metadata={'source': 'https://docs.langchain.com/oss/python/integrations/providers/overview', 'title': 'LangChain Python integrations - Docs by LangChain', 'description': 'Integrate with providers using LangChain Python.', 'language': 'en'}, page_content='& embedding models, tools & toolkits, document loaders, vector stores, and more.'),\n",[m
+[31m-       " Document(id='0abac797-3749-4362-8a04-0a22fff98021', metadata={'source': 'https://docs.langchain.com/oss/python/langchain/overview', 'title': 'LangChain overview - Docs by LangChain', 'description': 'LangChain provides create_agent: a minimal, highly configurable agent harness. Compose exactly the agent your use case needs from model, tools, prompt, and middleware.', 'language': 'en'}, page_content='Start with the primitives and compose exactly what your use case needs. Supports OpenAI, Anthropic, Google, and more.'),\n",[m
+[31m-       " Document(id='48613ca4-d7aa-491c-9e64-c615393b8c60', metadata={'source': 'https://docs.langchain.com/oss/python/langchain/overview', 'title': 'LangChain overview - Docs by LangChain', 'description': 'LangChain provides create_agent: a minimal, highly configurable agent harness. Compose exactly the agent your use case needs from model, tools, prompt, and middleware.', 'language': 'en'}, page_content='combining deterministic and agentic workflows.Use LangSmith to trace, debug, and evaluate agents built with any of these frameworks. Follow the tracing quickstart to get set up. We recommend you also set up LangSmith Engine which monitors your traces, detects issues, and proposes fixes.')]"[m
+[31m-      ][m
+[31m-     },[m
+[31m-     "execution_count": 11,[m
+[31m-     "metadata": {},[m
+[31m-     "output_type": "execute_result"[m
+[31m-    }[m
+[31m-   ],[m
+[32m+[m[32m   "outputs": [],[m
+    "source": [[m
+     "## 2. Recursive character txt splitter as vector store\n",[m
+     "\n",[m
+[36m@@ -177,7 +128,7 @@[m
+   },[m
+   {[m
+    "cell_type": "code",[m
+[31m-   "execution_count": 14,[m
+[32m+[m[32m   "execution_count": null,[m
+    "id": "9b1fbd62",[m
+    "metadata": {},[m
+    "outputs": [],[m
+[36m@@ -196,7 +147,7 @@[m
+   },[m
+   {[m
+    "cell_type": "code",[m
+[31m-   "execution_count": 15,[m
+[32m+[m[32m   "execution_count": null,[m
+    "id": "1046840d",[m
+    "metadata": {},[m
+    "outputs": [],[m
+[36m@@ -216,7 +167,7 @@[m
+   },[m
+   {[m
+    "cell_type": "code",[m
+[31m-   "execution_count": 16,[m
+[32m+[m[32m   "execution_count": null,[m
+    "id": "c3413f00",[m
+    "metadata": {},[m
+    "outputs": [],[m
+[36m@@ -250,7 +201,7 @@[m
+   },[m
+   {[m
+    "cell_type": "code",[m
+[31m-   "execution_count": 17,[m
+[32m+[m[32m   "execution_count": null,[m
+    "id": "2ab307b1",[m
+    "metadata": {},[m
+    "outputs": [],[m
+[36m@@ -326,7 +277,7 @@[m
+   },[m
+   {[m
+    "cell_type": "code",[m
+[31m-   "execution_count": 18,[m
+[32m+[m[32m   "execution_count": null,[m
+    "id": "38874454",[m
+    "metadata": {},[m
+    "outputs": [],[m
+[36m@@ -343,7 +294,7 @@[m
+   },[m
+   {[m
+    "cell_type": "code",[m
+[31m-   "execution_count": 19,[m
+[32m+[m[32m   "execution_count": null,[m
+    "id": "a7fc4b4c",[m
+    "metadata": {},[m
+    "outputs": [],[m
+[36m@@ -390,7 +341,7 @@[m
+   },[m
+   {[m
+    "cell_type": "code",[m
+[31m-   "execution_count": 20,[m
+[32m+[m[32m   "execution_count": null,[m
+    "id": "dcff9ea7",[m
+    "metadata": {},[m
+    "outputs": [],[m
+[36m@@ -423,21 +374,10 @@[m
+   },[m
+   {[m
+    "cell_type": "code",[m
+[31m-   "execution_count": 21,[m
+[32m+[m[32m   "execution_count": null,[m
+    "id": "3421577c",[m
+    "metadata": {},[m
+[31m-   "outputs": [[m
+[31m-    {[m
+[31m-     "data": {[m
+[31m-      "image/png": "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",[m
+[31m-      "text/plain": [[m
+[31m-       "<IPython.core.display.Image object>"[m
+[31m-      ][m
+[31m-     },[m
+[31m-     "metadata": {},[m
+[31m-     "output_type": "display_data"[m
+[31m-    }[m
+[31m-   ],[m
+[32m+[m[32m   "outputs": [],[m
+    "source": [[m
+     "# View the graph\n",[m
+     "from IPython.display import Image, display\n",[m
+[36m@@ -447,111 +387,10 @@[m
+   },[m
+   {[m
+    "cell_type": "code",[m
+[31m-   "execution_count": 22,[m
+[32m+[m[32m   "execution_count": null,[m
+    "id": "d2278364",[m
+    "metadata": {},[m
+[31m-   "outputs": [[m
+[31m-    {[m
+[31m-     "name": "stdout",[m
+[31m-     "output_type": "stream",[m
+[31m-     "text": [[m
+[31m-      "========== DEBUG REFLECTOR ==========\n",[m
+[31m-      "QUESTION: \n",[m
+[31m-      "How would you build a production-ready AI agent using LangChain, LangGraph,\n",[m
+[31m-      "and external model providers? Explain the role of each component and how they interact.\n",[m
+[31m-      "\n",[m
+[31m-      "ANSWER EMPTY? False\n",[m
+[31m-      "DOCS EMPTY? False\n",[m
+[31m-      "ANSWER: <think>\n",[m
+[31m-      "Okay, so the user is asking how to build a production-ready AI agent using LangChain, LangGraph, and external model providers. They want to know the role of each component and how they interact. Let me break down the context provided to structure the answer correctly.\n",[m
+[31m-      "\n",[m
+[31m-      "First, the context mentions that LangChain provides a standard interface for different providers like OpenAI or Anthropic. This makes it easy to switch models without changing code. So, I should explain LangChain's role in\n",[m
+[31m-      "====================================\n",[m
+[31m-      "RAW REFLECTION RESPONSE: <THINK>\n",[m
+[31m-      "OKAY, LET'S SEE. THE USER ASKED HOW TO BUILD A PRODUCTION-READY AI AGENT USING LANGCHAIN, LANGGRAPH, AND EXTERNAL MODEL PROVIDERS. THE GENERATED ANSWER EXPLAINS EACH COMPONENT'S ROLE AND THEIR INTERACTION.\n",[m
+[31m-      "\n",[m
+[31m-      "FIRST, THE ANSWER BREAKS DOWN THE COMPONENTS: EXTERNAL PROVIDERS ARE USED VIA LANGCHAIN'S PACKAGES, LANGCHAIN CREATES THE AGENT WITH CUSTOMIZABLE MIDDLEWARE, AND LANGGRAPH HANDLES THE ORCHESTRATION. IT ALSO MENTIONS THE INTEGRATION FLOW AND THE USE OF LANGSMITH FOR MONITORING.\n",[m
+[31m-      "\n",[m
+[31m-      "THE ANSWER COVERS ALL THE KEY POINTS FROM THE CONTEXT. IT EXPLAINS THE ROLE OF EACH PART AND HOW THEY WORK TOGETHER. THE USER WANTED AN EXPLANATION OF EACH COMPONENT'S ROLE AND THEIR INTERACTIONS, WHICH THE ANSWER PROVIDES CLEARLY. THERE'S NO MISSING INFORMATION, AND THE ANSWER IS COMPLETE. SO, IT MEETS THE EVALUATION CRITERIA. \n",[m
+[31m-      "\n",[m
+[31m-      "PASS\n",[m
+[31m-      "</THINK>\n",[m
+[31m-      "\n",[m
+[31m-      "PASS\n",[m
+[31m-      "\n",[m
+[31m-      "========== QUESTION ==========\n",[m
+[31m-      "\n",[m
+[31m-      "How would you build a production-ready AI agent using LangChain, LangGraph,\n",[m
+[31m-      "and external model providers? Explain the role of each component and how they interact.\n",[m
+[31m-      "\n",[m
+[31m-      "\n",[m
+[31m-      "========== RETRIEVED DOCS ==========\n",[m
+[31m-      "\n",[m
+[31m-      "--- attempt_0 ---\n",[m
+[31m-      "\n",[m
+[31m-      "Doc 1:\n",[m
+[31m-      "A provider is a company or platform that hosts AI models and exposes them through an API (e.g., OpenAI, Anthropic, Google). Many providers have a dedicated langchain-<provider> package that implements one or more of LangChain’s standard interfaces—chat models, embedding models, vector stores, and more—giving you a consistent API regardless of the underlying provider. Install the package, pick a model name, and swap providers without changing your code.\n",[m
+[31m-      "\n",[m
+[31m-      "Doc 2:\n",[m
+[31m-      "LangChain vs. LangGraph vs. Deep AgentsStart with Deep Agents for a “batteries-included” agent with features like automatic context compression, a virtual filesystem, and subagent-spawning. Deep Agents are built on LangChain agents which you can also use directly.Use LangChain (create_agent) for a highly customizable harness, easily tailored to your use case and data.Use LangGraph, our low-level orchestration framework, for advanced needs combining deterministic and agentic workflows.Use\n",[m
+[31m-      "\n",[m
+[31m-      "Doc 3:\n",[m
+[31m-      "Standard model interfaceUse one interface for chat models, embeddings, and more across providers. Switch models with minimal code changes and keep your application portable as requirements evolve.Learn moreHighly configurable harnessStart with create_agent as a minimal harness and add capabilities incrementally through middleware. Compose only what your use case needs, from guardrails and retries to routing and custom tool policies.Learn moreBuilt on top of LangGraphLangChain’s agents are built\n",[m
+[31m-      "\n",[m
+[31m-      "Doc 4:\n",[m
+[31m-      "on top of LangGraphLangChain’s agents are built on top of LangGraph. This allows us to take advantage of LangGraph’s durable execution, human-in-the-loop support, persistence, and more.Learn moreDebug with LangSmithInspect traces, tool calls, state transitions, and latency in one place. Find failure modes, evaluate quality, and improve agent behavior with execution data.Learn more\n",[m
+[31m-      "\n",[m
+[31m-      "========== ANSWER ==========\n",[m
+[31m-      "<think>\n",[m
+[31m-      "Okay, so the user is asking how to build a production-ready AI agent using LangChain, LangGraph, and external model providers. They want to know the role of each component and how they interact. Let me break down the context provided to structure the answer correctly.\n",[m
+[31m-      "\n",[m
+[31m-      "First, the context mentions that LangChain provides a standard interface for different providers like OpenAI or Anthropic. This makes it easy to switch models without changing code. So, I should explain LangChain's role in handling model interactions through these packages.\n",[m
+[31m-      "\n",[m
+[31m-      "Then there's LangGraph, which is described as a low-level orchestration framework. The context says LangChain agents are built on LangGraph, which allows for durable execution and persistence. I need to clarify that LangGraph is the underlying framework for workflow orchestration, combining deterministic and agentic workflows.\n",[m
+[31m-      "\n",[m
+[31m-      "The answer should outline the components step by step. Start with using LangChain's create_agent for a customizable setup, maybe using middleware for adding features like guardrails. Then mention LangGraph for the workflow structure, ensuring that the agent's logic is handled through its graph structure. Also, the context talks about Deep Agents for a more out-of-the-box solution, but the user might prefer customization.\n",[m
+[31m-      "\n",[m
+[31m-      "External model providers come into play through LangChain's provider-specific packages. The user needs to install these, choose a model, and have a consistent API. This should be highlighted as part of the setup process.\n",[m
+[31m-      "\n",[m
+[31m-      "Interaction between components: LangChain uses LangGraph as its base, so when creating an agent with LangChain, it's actually leveraging LangGraph's features. Then, the external models are accessed via LangChain's interfaces, which are consistent across providers.\n",[m
+[31m-      "\n",[m
+[31m-      "I should also mention LangSmith for debugging and monitoring, as it's part of the context. That helps in tracking performance and failures in production.\n",[m
+[31m-      "\n",[m
+[31m-      "Putting it all together, the steps would be: set up model access using LangChain's provider packages, create the agent with LangChain's create_agent (or use Deep Agents for more features), build the workflow logic using LangGraph's graph structure, and use LangSmith for monitoring. Each component's role is distinct but interconnected, with LangChain handling the high-level agent setup and LangGraph managing the workflow orchestration.\n",[m
+[31m-      "</think>\n",[m
+[31m-      "\n",[m
+[31m-      "To build a production-ready AI agent using **LangChain**, **LangGraph**, and external model providers:  \n",[m
+[31m-      "\n",[m
+[31m-      "1. **External Model Providers**:  \n",[m
+[31m-      "   - Use provider-specific packages (e.g., `langchain-openai`, `langchain-anthropic`) to access AI models via standard interfaces (chat, embeddings).  \n",[m
+[31m-      "   - This ensures portability: swap providers (e.g., OpenAI → Anthropic) by changing model names without altering core logic.  \n",[m
+[31m-      "\n",[m
+[31m-      "2. **LangChain**:  \n",[m
+[31m-      "   - **Role**: Provides a high-level framework for agent creation (`create_agent`) with customizable middleware (guardrails, retries, tool policies).  \n",[m
+[31m-      "   - **Interaction**: Built on **LangGraph**, LangChain agents leverage its durable execution and state management. Use `create_agent` for a tailored harness or \"Deep Agents\" for advanced features like context compression and subagent spawning.  \n",[m
+[31m-      "\n",[m
+[31m-      "3. **LangGraph**:  \n",[m
+[31m-      "   - **Role**: A low-level orchestration framework for deterministic and agentic workflows.  \n",[m
+[31m-      "   - **Interaction**: LangChain agents rely on LangGraph to manage state transitions, persistence, and complex logic (e.g., human-in-the-loop workflows). Use LangGraph directly for advanced graph-based workflows requiring fine-grained control.  \n",[m
+[31m-      "\n",[m
+[31m-      "4. **Integration Flow**:  \n",[m
+[31m-      "   - **Model Access**: LangChain abstracts model providers, enabling consistent interaction with external models.  \n",[m
+[31m-      "   - **Agent Logic**: LangChain (`create_agent` or Deep Agents) defines the agent’s behavior, which runs on LangGraph’s execution graph.  \n",[m
+[31m-      "   - **Monitoring**: Use **LangSmith** to debug/traces workflows, analyze tool calls, and optimize agent performance.  \n",[m
+[31m-      "\n",[m
+[31m-      "**Summary**: External providers supply the AI models, LangChain defines the agent’s behavior and policies, and LangGraph handles workflow orchestration and execution. Together, they enable scalable, maintainable agents adaptable to production needs.\n",[m
+[31m-      "\n",[m
+[31m-      "========== REFLECTION ==========\n",[m
+[31m-      "PASS\n",[m
+[31m-      "\n",[m
+[31m-      "========== REVISED ==========\n",[m
+[31m-      "False\n",[m
+[31m-      "\n",[m
+[31m-      "========== ATTEMPTS ==========\n",[m
+[31m-      "0\n"[m
+[31m-     ][m
+[31m-    }[m
+[31m-   ],[m
+[32m+[m[32m   "outputs": [],[m
+    "source": [[m
+     "test_question = \"\"\"\n",[m
+     "How would you build a production-ready AI agent using LangChain, LangGraph,\n",[m
+[36m@@ -587,138 +426,10 @@[m
+   },[m
+   {[m
+    "cell_type": "code",[m
+[31m-   "execution_count": 23,[m
+[32m+[m[32m   "execution_count": null,[m
+    "id": "e0f7884d",[m
+    "metadata": {},[m
+[31m-   "outputs": [[m
+[31m-    {[m
+[31m-     "name": "stdout",[m
+[31m-     "output_type": "stream",[m
+[31m-     "text": [[m
+[31m-      "========== DEBUG REFLECTOR ==========\n",[m
+[31m-      "QUESTION: \n",[m
+[31m-      "what is Quantum theory\n",[m
+[31m-      "\n",[m
+[31m-      "ANSWER EMPTY? False\n",[m
+[31m-      "DOCS EMPTY? False\n",[m
+[31m-      "ANSWER: <think>\n",[m
+[31m-      "Okay, the user is asking what Quantum theory is. Let me check the provided context to see if there's any relevant information.\n",[m
+[31m-      "\n",[m
+[31m-      "Looking through the context, the main topics are about LangSmith, agents, workflows, and related technologies. There's mention of deterministic and agentic workflows, LangGraph, tools, models, and deployment. However, I don't see any direct references to Quantum theory here. The context seems focused on software development and AI frameworks, not physics or quan\n",[m
+[31m-      "====================================\n",[m
+[31m-      "RAW REFLECTION RESPONSE: <THINK>\n",[m
+[31m-      "OKAY, LET ME TRY TO FIGURE THIS OUT. THE USER ASKED \"WHAT IS QUANTUM THEORY?\" AND THE RETRIEVED CONTEXT IS ABOUT LANGSMITH, AGENTS, WORKFLOWS, AND OTHER AI/ML FRAMEWORK COMPONENTS. THERE'S NOTHING HERE ABOUT QUANTUM MECHANICS OR QUANTUM THEORY. THE CONTEXT DOESN'T MENTION PHYSICS CONCEPTS, SO THE GENERATED ANSWER CAN'T USE THAT INFORMATION. ACCORDING TO THE EVALUATION RULES, IF THE ANSWER CAN'T BE PROVIDED BASED ON THE CONTEXT, IT SHOULD RETURN FAIL. THE CORRECT RESPONSE HERE IS TO STATE THAT THE CONTEXT DOESN'T CONTAIN THE INFORMATION, WHICH FALLS UNDER THE FAIL CONDITIONS. SO THE ANSWER SHOULD BE FAIL.\n",[m
+[31m-      "</THINK>\n",[m
+[31m-      "\n",[m
+[31m-      "FAIL\n",[m
+[31m-      "========== DEBUG REFLECTOR ==========\n",[m
+[31m-      "QUESTION: \n",[m
+[31m-      "what is Quantum theory\n",[m
+[31m-      "\n",[m
+[31m-      "ANSWER EMPTY? False\n",[m
+[31m-      "DOCS EMPTY? False\n",[m
+[31m-      "ANSWER: <think>\n",[m
+[31m-      "Okay, the user is asking what Quantum theory is. Let me check the provided context to see if there's any relevant information.\n",[m
+[31m-      "\n",[m
+[31m-      "Looking at attempt_0 and attempt_1, the context seems to be about LangSmith, LangChain, and related technologies. The terms mentioned are about agents, workflows, debugging, tools, models, etc. There's a lot of technical details about software frameworks and their components. However, I don't see any mention of Quantum theory here. \n",[m
+[31m-      "\n",[m
+[31m-      "The user's question is about\n",[m
+[31m-      "====================================\n",[m
+[31m-      "RAW REFLECTION RESPONSE: <THINK>\n",[m
+[31m-      "OKAY, THE USER ASKED ABOUT QUANTUM THEORY, AND I CHECKED THE RETRIEVED CONTEXT. THE CONTEXT IS ALL ABOUT LANGSMITH, LANGCHAIN, AND RELATED SOFTWARE TOOLS. THERE'S NO MENTION OF QUANTUM THEORY HERE. THE ANSWER NEEDS TO BE BASED SOLELY ON THE PROVIDED CONTEXT, SO I CAN'T USE ANY EXTERNAL KNOWLEDGE. SINCE THE CONTEXT DOESN'T HAVE THE INFORMATION, I SHOULD INFORM THE USER THAT IT'S NOT AVAILABLE HERE. ACCORDING TO THE EVALUATION RULES, IF THE ANSWER STATES THAT THE INFORMATION IS MISSING, IT'S A FAIL. SO I NEED TO RETURN FAIL.\n",[m
+[31m-      "</THINK>\n",[m
+[31m-      "\n",[m
+[31m-      "FAIL\n",[m
+[31m-      "========== DEBUG REFLECTOR ==========\n",[m
+[31m-      "QUESTION: \n",[m
+[31m-      "what is Quantum theory\n",[m
+[31m-      "\n",[m
+[31m-      "ANSWER EMPTY? False\n",[m
+[31m-      "DOCS EMPTY? False\n",[m
+[31m-      "ANSWER: <think>\n",[m
+[31m-      "Okay, so the user is asking about Quantum theory. Let me check the provided contexts to see if there's any relevant information.\n",[m
+[31m-      "\n",[m
+[31m-      "Looking through attempt_0, attempt_1, and attempt_2, all the contexts are about LangChain, LangGraph, agents, and related frameworks. There's a lot of mention of tools, models, workflows, and debugging with LangSmith. However, none of these contexts discuss Quantum theory. The closest thing is \"Quantum\" in the user's question, but the contexts don't cover phys\n",[m
+[31m-      "====================================\n",[m
+[31m-      "RAW REFLECTION RESPONSE: <THINK>\n",[m
+[31m-      "OKAY, THE USER IS ASKING ABOUT QUANTUM THEORY. LET ME CHECK THE RETRIEVED CONTEXTS.\n",[m
+[31m-      "\n",[m
+[31m-      "LOOKING AT ALL THE ATTEMPTS (0, 1, 2), THE CONTEXTS ARE ALL ABOUT LANGCHAIN, LANGGRAPH, AGENTS, TOOLS, AND RELATED FRAMEWORKS. THERE'S MENTION OF MODELS, WORKFLOWS, AND DEBUGGING WITH LANGSMITH. HOWEVER, THERE'S NO MENTION OF QUANTUM THEORY OR ANY PHYSICS-RELATED TOPICS. THE CONTEXTS ARE FOCUSED ON SOFTWARE DEVELOPMENT AND AI SYSTEMS.\n",[m
+[31m-      "\n",[m
+[31m-      "SINCE THE GENERATED ANSWER CORRECTLY POINTS OUT THAT THE RETRIEVED CONTEXT DOESN'T PROVIDE INFORMATION ABOUT QUANTUM THEORY AND EXPLAINS THE SCOPE OF THE AVAILABLE INFORMATION, IT'S ACCURATE. THE ANSWER ADHERES TO THE RULE OF NOT INFERRING BEYOND THE CONTEXT. THE EVALUATION RULES STATE THAT IF THE ANSWER INDICATES MISSING INFORMATION, IT SHOULD FAIL. THEREFORE, THIS RESPONSE SHOULD BE CLASSIFIED AS FAIL.\n",[m
+[31m-      "</THINK>\n",[m
+[31m-      "\n",[m
+[31m-      "FAIL\n",[m
+[31m-      "\n",[m
+[31m-      "========== QUESTION ==========\n",[m
+[31m-      "\n",[m
+[31m-      "what is Quantum theory\n",[m
+[31m-      "\n",[m
+[31m-      "\n",[m
+[31m-      "========== RETRIEVED DOCS ==========\n",[m
+[31m-      "\n",[m
+[31m-      "--- attempt_0 ---\n",[m
+[31m-      "\n",[m
+[31m-      "Doc 1:\n",[m
+[31m-      "startedInstallQuickstartChangelogPhilosophyCore componentsAgentsModelsMessagesToolsShort-term memoryEvent streamingStreamingStructured outputMiddlewareOverviewPrebuilt middlewareCustom middlewareFrontendOverviewPatternsIntegrationsAdvanced usageGuardrailsRuntimeContext engineeringModel Context Protocol (MCP)Human-in-the-loopMulti-agentRetrievalLong-term memoryAgent developmentLangSmith StudioTestAgent Chat UIDeploy with LangSmithDeploymentObservabilityOn this page Create an agent Core\n",[m
+[31m-      "\n",[m
+[31m-      "Doc 2:\n",[m
+[31m-      "combining deterministic and agentic workflows.Use LangSmith to trace, debug, and evaluate agents built with any of these frameworks. Follow the tracing quickstart to get set up. We recommend you also set up LangSmith Engine which monitors your traces, detects issues, and proposes fixes.\n",[m
+[31m-      "\n",[m
+[31m-      "Doc 3:\n",[m
+[31m-      "on top of LangGraphLangChain’s agents are built on top of LangGraph. This allows us to take advantage of LangGraph’s durable execution, human-in-the-loop support, persistence, and more.Learn moreDebug with LangSmithInspect traces, tool calls, state transitions, and latency in one place. Find failure modes, evaluate quality, and improve agent behavior with execution data.Learn more\n",[m
+[31m-      "\n",[m
+[31m-      "Doc 4:\n",[m
+[31m-      "& embedding models, tools & toolkits, document loaders, vector stores, and more.\n",[m
+[31m-      "\n",[m
+[31m-      "--- attempt_1 ---\n",[m
+[31m-      "\n",[m
+[31m-      "Doc 1:\n",[m
+[31m-      "combining deterministic and agentic workflows.Use LangSmith to trace, debug, and evaluate agents built with any of these frameworks. Follow the tracing quickstart to get set up. We recommend you also set up LangSmith Engine which monitors your traces, detects issues, and proposes fixes.\n",[m
+[31m-      "\n",[m
+[31m-      "Doc 2:\n",[m
+[31m-      "startedInstallQuickstartChangelogPhilosophyCore componentsAgentsModelsMessagesToolsShort-term memoryEvent streamingStreamingStructured outputMiddlewareOverviewPrebuilt middlewareCustom middlewareFrontendOverviewPatternsIntegrationsAdvanced usageGuardrailsRuntimeContext engineeringModel Context Protocol (MCP)Human-in-the-loopMulti-agentRetrievalLong-term memoryAgent developmentLangSmith StudioTestAgent Chat UIDeploy with LangSmithDeploymentObservabilityOn this page Create an agent Core\n",[m
+[31m-      "\n",[m
+[31m-      "Doc 3:\n",[m
+[31m-      "LangChain overview - Docs by LangChainDocumentation IndexFetch the complete documentation index at: /llms.txtUse this file to discover all available pages before exploring further.Skip to main contentDocs by LangChain home pageBuildSearch...⌘KAsk AIGitHubTry LangSmithTry LangSmithSearch...NavigationLangChain overviewOverviewDeep AgentsLangChainLangGraphIntegrationsLearnReferenceContributePythonOverviewGet startedInstallQuickstartChangelogPhilosophyCore\n",[m
+[31m-      "\n",[m
+[31m-      "Doc 4:\n",[m
+[31m-      "LangChain vs. LangGraph vs. Deep AgentsStart with Deep Agents for a “batteries-included” agent with features like automatic context compression, a virtual filesystem, and subagent-spawning. Deep Agents are built on LangChain agents which you can also use directly.Use LangChain (create_agent) for a highly customizable harness, easily tailored to your use case and data.Use LangGraph, our low-level orchestration framework, for advanced needs combining deterministic and agentic workflows.Use\n",[m
+[31m-      "\n",[m
+[31m-      "--- attempt_2 ---\n",[m
+[31m-      "\n",[m
+[31m-      "Doc 1:\n",[m
+[31m-      "combining deterministic and agentic workflows.Use LangSmith to trace, debug, and evaluate agents built with any of these frameworks. Follow the tracing quickstart to get set up. We recommend you also set up LangSmith Engine which monitors your traces, detects issues, and proposes fixes.\n",[m
+[31m-      "\n",[m
+[31m-      "Doc 2:\n",[m
+[31m-      "AIlangchain-azure-ai✅MongoDBlangchain-mongodb✅LiteLLMlangchain-litellmN/AFireworkslangchain-fireworks✅MistralAIlangchain-mistralai✅Coherelangchain-cohere✅Pineconelangchain-pinecone✅xAI (Grok)langchain-xai✅DeepSeeklangchain-deepseek✅Tavilylangchain-tavily✅Qdrantlangchain-qdrant✅Nvidia AI Endpointslangchain-nvidia-ai-endpoints❌Milvuslangchain-milvus✅IBMlangchain-ibm✅Elasticsearchlangchain-elasticsearch✅Perplexitylangchain-perplexity✅DataStax Astra\n",[m
+[31m-      "\n",[m
+[31m-      "Doc 3:\n",[m
+[31m-      "startedInstallQuickstartChangelogPhilosophyCore componentsAgentsModelsMessagesToolsShort-term memoryEvent streamingStreamingStructured outputMiddlewareOverviewPrebuilt middlewareCustom middlewareFrontendOverviewPatternsIntegrationsAdvanced usageGuardrailsRuntimeContext engineeringModel Context Protocol (MCP)Human-in-the-loopMulti-agentRetrievalLong-term memoryAgent developmentLangSmith StudioTestAgent Chat UIDeploy with LangSmithDeploymentObservabilityOn this page Create an agent Core\n",[m
+[31m-      "\n",[m
+[31m-      "Doc 4:\n",[m
+[31m-      "LangChain overview - Docs by LangChainDocumentation IndexFetch the complete documentation index at: /llms.txtUse this file to discover all available pages before exploring further.Skip to main contentDocs by LangChain home pageBuildSearch...⌘KAsk AIGitHubTry LangSmithTry LangSmithSearch...NavigationLangChain overviewOverviewDeep AgentsLangChainLangGraphIntegrationsLearnReferenceContributePythonOverviewGet startedInstallQuickstartChangelogPhilosophyCore\n",[m
+[31m-      "\n",[m
+[31m-      "========== ANSWER ==========\n",[m
+[31m-      "<think>\n",[m
+[31m-      "Okay, so the user is asking about Quantum theory. Let me check the provided contexts to see if there's any relevant information.\n",[m
+[31m-      "\n",[m
+[31m-      "Looking through attempt_0, attempt_1, and attempt_2, all the contexts are about LangChain, LangGraph, agents, and related frameworks. There's a lot of mention of tools, models, workflows, and debugging with LangSmith. However, none of these contexts discuss Quantum theory. The closest thing is \"Quantum\" in the user's question, but the contexts don't cover physics topics. Since the answer must be based solely on the retrieved context and there's no mention of Quantum theory here, I should inform the user that the available information doesn't address their question. I can't provide a general explanation of Quantum theory without going beyond the given contexts.\n",[m
+[31m-      "</think>\n",[m
+[31m-      "\n",[m
+[31m-      "The retrieved context does not provide information about Quantum theory. It focuses on topics related to LangChain, LangGraph, agent development, and associated tools. For an explanation of Quantum theory, additional sources outside the provided context would be required.\n",[m
+[31m-      "\n",[m
+[31m-      "========== REFLECTION ==========\n",[m
+[31m-      "FAIL\n",[m
+[31m-      "\n",[m
+[31m-      "========== REVISED ==========\n",[m
+[31m-      "True\n",[m
+[31m-      "\n",[m
+[31m-      "========== ATTEMPTS ==========\n",[m
+[31m-      "2\n"[m
+[31m-     ][m
+[31m-    }[m
+[31m-   ],[m
+[32m+[m[32m   "outputs": [],[m
+    "source": [[m
+     "# Negative scenario\n",[m
+     "\n",[m
+[1mdiff --git a/4-AgenticRAG/6-AutonomousRAG.ipynb b/4-AgenticRAG/6-AutonomousRAG.ipynb[m
+[1mindex 7cddf5f..5b8b713 100644[m
+[1m--- a/4-AgenticRAG/6-AutonomousRAG.ipynb[m
+[1m+++ b/4-AgenticRAG/6-AutonomousRAG.ipynb[m
+[36m@@ -35,22 +35,10 @@[m
+   },[m
+   {[m
+    "cell_type": "code",[m
+[31m-   "execution_count": 1,[m
+[32m+[m[32m   "execution_count": null,[m
+    "id": "ef774de5",[m
+    "metadata": {},[m
+[31m-   "outputs": [[m
+[31m-    {[m
+[31m-     "name": "stderr",[m
+[31m-     "output_type": "stream",[m
+[31m-     "text": [[m
+[31m-      "/workspaces/AgenticAI/.venv/lib/python3.13/site-packages/tqdm/auto.py:21: TqdmWarning: IProgress not found. Please update jupyter and ipywidgets. See https://ipywidgets.readthedocs.io/en/stable/user_install.html\n",[m
+[31m-      "  from .autonotebook import tqdm as notebook_tqdm\n",[m
+[31m-      "/tmp/ipykernel_19223/1721154562.py:9: DeprecationWarning: `langchain-community` is being sunset and is no longer actively maintained. See https://github.com/langchain-ai/langchain-community/issues/674 for details and migration guidance toward standalone integration packages.\n",[m
+[31m-      "  from langchain_community.vectorstores import FAISS\n",[m
+[31m-      "USER_AGENT environment variable not set, consider setting it to identify your requests.\n"[m
+[31m-     ][m
+[31m-    }[m
+[31m-   ],[m
+[32m+[m[32m   "outputs": [],[m
+    "source": [[m
+     "# %%\n",[m
+     "import os\n",[m
+[36m@@ -77,7 +65,7 @@[m
+   },[m
+   {[m
+    "cell_type": "code",[m
+[31m-   "execution_count": 2,[m
+[32m+[m[32m   "execution_count": null,[m
+    "id": "a4336242",[m
+    "metadata": {},[m
+    "outputs": [],[m
+[36m@@ -122,7 +110,7 @@[m
+   },[m
+   {[m
+    "cell_type": "code",[m
+[31m-   "execution_count": 4,[m
+[32m+[m[32m   "execution_count": null,[m
+    "id": "736dcdc3",[m
+    "metadata": {},[m
+    "outputs": [],[m
+[36m@@ -160,7 +148,7 @@[m
+   },[m
+   {[m
+    "cell_type": "code",[m
+[31m-   "execution_count": 6,[m
+[32m+[m[32m   "execution_count": null,[m
+    "id": "0540a928",[m
+    "metadata": {},[m
+    "outputs": [],[m
+[36m@@ -200,7 +188,7 @@[m
+   },[m
+   {[m
+    "cell_type": "code",[m
+[31m-   "execution_count": 7,[m
+[32m+[m[32m   "execution_count": null,[m
+    "id": "eb936f26",[m
+    "metadata": {},[m
+    "outputs": [],[m
+[36m@@ -247,7 +235,7 @@[m
+   },[m
+   {[m
+    "cell_type": "code",[m
+[31m-   "execution_count": 8,[m
+[32m+[m[32m   "execution_count": null,[m
+    "id": "cc0e5bce",[m
+    "metadata": {},[m
+    "outputs": [],[m
+[36m@@ -280,7 +268,7 @@[m
+   },[m
+   {[m
+    "cell_type": "code",[m
+[31m-   "execution_count": 9,[m
+[32m+[m[32m   "execution_count": null,[m
+    "id": "773fb341",[m
+    "metadata": {},[m
+    "outputs": [],[m
+[36m@@ -322,7 +310,7 @@[m
+   },[m
+   {[m
+    "cell_type": "code",[m
+[31m-   "execution_count": 10,[m
+[32m+[m[32m   "execution_count": null,[m
+    "id": "64d04e77",[m
+    "metadata": {},[m
+    "outputs": [],[m
+[36m@@ -379,7 +367,7 @@[m
+   },[m
+   {[m
+    "cell_type": "code",[m
+[31m-   "execution_count": 11,[m
+[32m+[m[32m   "execution_count": null,[m
+    "id": "84ee557f",[m
+    "metadata": {},[m
+    "outputs": [],[m
+[36m@@ -430,7 +418,7 @@[m
+   },[m
+   {[m
+    "cell_type": "code",[m
+[31m-   "execution_count": 12,[m
+[32m+[m[32m   "execution_count": null,[m
+    "id": "9645adf3",[m
+    "metadata": {},[m
+    "outputs": [],[m
+[36m@@ -450,7 +438,7 @@[m
+   },[m
+   {[m
+    "cell_type": "code",[m
+[31m-   "execution_count": 14,[m
+[32m+[m[32m   "execution_count": null,[m
+    "id": "654ae34a",[m
+    "metadata": {},[m
+    "outputs": [],[m
+[36m@@ -488,21 +476,10 @@[m
+   },[m
+   {[m
+    "cell_type": "code",[m
+[31m-   "execution_count": 15,[m
+[32m+[m[32m   "execution_count": null,[m
+    "id": "c0558cd5",[m
+    "metadata": {},[m
+[31m-   "outputs": [[m
+[31m-    {[m
+[31m-     "data": {[m
+[31m-      "image/png": "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",[m
+[31m-      "text/plain": [[m
+[31m-       "<IPython.core.display.Image object>"[m
+[31m-      ][m
+[31m-     },[m
+[31m-     "metadata": {},[m
+[31m-     "output_type": "display_data"[m
+[31m-    }[m
+[31m-   ],[m
+[32m+[m[32m   "outputs": [],[m
+    "source": [[m
+     "\n",[m
+     "# 13. Visualize Graph\n",[m
+[36m@@ -514,299 +491,10 @@[m
+   },[m
+   {[m
+    "cell_type": "code",[m
+[31m-   "execution_count": 16,[m
+[32m+[m[32m   "execution_count": null,[m
+    "id": "7628d697",[m
+    "metadata": {},[m
+[31m-   "outputs": [[m
+[31m-    {[m
+[31m-     "name": "stderr",[m
+[31m-     "output_type": "stream",[m
+[31m-     "text": [[m
+[31m-      "/workspaces/AgenticAI/.venv/lib/python3.13/site-packages/wikipedia/wikipedia.py:389: GuessedAtParserWarning: No parser was explicitly specified, so I'm using the best available HTML parser for this system (\"lxml\"). This usually isn't a problem, but if you run this code on another system, or in a different virtual environment, it may use a different parser and behave differently.\n",[m
+[31m-      "\n",[m
+[31m-      "The code that caused this warning is on line 389 of the file /workspaces/AgenticAI/.venv/lib/python3.13/site-packages/wikipedia/wikipedia.py. To get rid of this warning, pass the additional argument 'features=\"lxml\"' to the BeautifulSoup constructor.\n",[m
+[31m-      "\n",[m
+[31m-      "  lis = BeautifulSoup(html).find_all('li')\n"[m
+[31m-     ][m
+[31m-    },[m
+[31m-    {[m
+[31m-     "name": "stdout",[m
+[31m-     "output_type": "stream",[m
+[31m-     "text": [[m
+[31m-      "\n",[m
+[31m-      "========== QUESTION ==========\n",[m
+[31m-      "\n",[m
+[31m-      "How would you build a production-ready AI agent using LangChain, LangGraph,\n",[m
+[31m-      "RAG, and external model providers? Explain the role of each component and how they interact.\n",[m
+[31m-      "\n",[m
+[31m-      "\n",[m
+[31m-      "========== SUBTASKS ==========\n",[m
+[31m-      "- <think>\n",[m
+[31m-      "- Okay, I need to break down the user's question into smaller, searchable subtasks. The user is asking about building a production-ready AI agent using LangChain, LangGraph, RAG, and external model providers. Let's start by identifying the main components mentioned.\n",[m
+[31m-      "- First, LangChain is a framework, so I should probably start by explaining its role in building the agent. Then, LangGraph is part of LangChain, maybe for managing workflows or state. RAG is the Retrieval-Augmented Generation part, which involves combining retrieval and generation steps. External model providers like OpenAI or Anthropic would be for the actual model inference.\n",[m
+[31m-      "- The user wants to know how each component interacts. So each subtask should focus on one component's role and then their interactions. For example, first, what's LangChain's role in structuring the agent. Then RAG for knowledge retrieval. How LangGraph manages the agent's workflow. Integrating external models into the system. Then the data flow between components. Error handling and scalability aspects. Testing and deployment steps. Monitoring and logging. Security considerations. Finally, putting it all together into a production system.\n",[m
+[31m-      "- Each subtask should be a concise, searchable phrase. Let me list them out step by step without explanations. Make sure each line is a separate task and they cover all parts mentioned. Check for any missing components or interactions. Maybe also include how the external models are used with LangChain. And ensure the order makes sense from setup to deployment.\n",[m
+[31m-      "- </think>\n",[m
+[31m-      "- Define the role of LangChain in structuring the AI agent's workflow\n",[m
+[31m-      "- Explain how RAG enhances the agent's knowledge retrieval and response generation\n",[m
+[31m-      "- Clarify LangGraph's purpose in managing state and control flow within the agent\n",[m
+[31m-      "- Outline integration of external model providers like OpenAI or Anthropic for inference\n",[m
+[31m-      "- Detail the data flow between RAG components and LangChain agents\n",[m
+[31m-      "- Describe error handling and fallback strategies for external API failures\n",[m
+[31m-      "- Specify how to modularize components for scalability and maintainability\n",[m
+[31m-      "- Explain logging and monitoring practices for production deployment\n",[m
+[31m-      "- Address security considerations for API keys and sensitive data\n",[m
+[31m-      "- Outline steps to test and validate the agent's reliability under load\n",[m
+[31m-      "- Define deployment strategies for containerized or serverless environments\n",[m
+[31m-      "- Highlight methods to update and maintain RAG knowledge sources dynamically\n",[m
+[31m-      "- Clarify how user inputs trigger specific LangGraph subgraphs\n",[m
+[31m-      "- Explain model selection and switching between external providers\n",[m
+[31m-      "- Detail performance optimization techniques for real-time inference\n",[m
+[31m-      "\n",[m
+[31m-      "========== SELECTED TOOLS ==========\n",[m
+[31m-      "<think> --> wikipedia\n",[m
+[31m-      "Okay, I need to break down the user's question into smaller, searchable subtasks. The user is asking about building a production-ready AI agent using LangChain, LangGraph, RAG, and external model providers. Let's start by identifying the main components mentioned. --> wikipedia\n",[m
+[31m-      "First, LangChain is a framework, so I should probably start by explaining its role in building the agent. Then, LangGraph is part of LangChain, maybe for managing workflows or state. RAG is the Retrieval-Augmented Generation part, which involves combining retrieval and generation steps. External model providers like OpenAI or Anthropic would be for the actual model inference. --> wikipedia\n",[m
+[31m-      "The user wants to know how each component interacts. So each subtask should focus on one component's role and then their interactions. For example, first, what's LangChain's role in structuring the agent. Then RAG for knowledge retrieval. How LangGraph manages the agent's workflow. Integrating external models into the system. Then the data flow between components. Error handling and scalability aspects. Testing and deployment steps. Monitoring and logging. Security considerations. Finally, putting it all together into a production system. --> wikipedia\n",[m
+[31m-      "Each subtask should be a concise, searchable phrase. Let me list them out step by step without explanations. Make sure each line is a separate task and they cover all parts mentioned. Check for any missing components or interactions. Maybe also include how the external models are used with LangChain. And ensure the order makes sense from setup to deployment. --> wikipedia\n",[m
+[31m-      "</think> --> wikipedia\n",[m
+[31m-      "Define the role of LangChain in structuring the AI agent's workflow --> wikipedia\n",[m
+[31m-      "Explain how RAG enhances the agent's knowledge retrieval and response generation --> wikipedia\n",[m
+[31m-      "Clarify LangGraph's purpose in managing state and control flow within the agent --> wikipedia\n",[m
+[31m-      "Outline integration of external model providers like OpenAI or Anthropic for inference --> wikipedia\n",[m
+[31m-      "Detail the data flow between RAG components and LangChain agents --> wikipedia\n",[m
+[31m-      "Describe error handling and fallback strategies for external API failures --> wikipedia\n",[m
+[31m-      "Specify how to modularize components for scalability and maintainability --> wikipedia\n",[m
+[31m-      "Explain logging and monitoring practices for production deployment --> wikipedia\n",[m
+[31m-      "Address security considerations for API keys and sensitive data --> wikipedia\n",[m
+[31m-      "Outline steps to test and validate the agent's reliability under load --> wikipedia\n",[m
+[31m-      "Define deployment strategies for containerized or serverless environments --> wikipedia\n",[m
+[31m-      "Highlight methods to update and maintain RAG knowledge sources dynamically --> wikipedia\n",[m
+[31m-      "Clarify how user inputs trigger specific LangGraph subgraphs --> wikipedia\n",[m
+[31m-      "Explain model selection and switching between external providers --> wikipedia\n",[m
+[31m-      "Detail performance optimization techniques for real-time inference --> wikipedia\n",[m
+[31m-      "\n",[m
+[31m-      "========== RETRIEVED DOCS ==========\n",[m
+[31m-      "\n",[m
+[31m-      "--- <think> ---\n",[m
+[31m-      "\n",[m
+[31m-      "Doc 1:\n",[m
+[31m-      "Page: Think tank\n",[m
+[31m-      "Summary: A think tank or public policy institute is an organization that performs research and advocacy concerning topics such as social policy, political strategy, economics, military, technology, and culture. Most think tanks are non-governmental organizations, but some are semi-autonomous agencies within a government, and some are associated with particular political parties, businesses, or the military. Think tanks are often funded by individual donations, with many also accepting government grants.\n",[m
+[31m-      "Think tanks publish articles and studies, and sometimes draft legislation on particular matters of policy or society. This information is then used by governments, businesses\n",[m
+[31m-      "\n",[m
+[31m-      "--- Okay, I need to break down the user's question into smaller, searchable subtasks. The user is asking about building a production-ready AI agent using LangChain, LangGraph, RAG, and external model providers. Let's start by identifying the main components mentioned. ---\n",[m
+[31m-      "\n",[m
+[31m-      "Doc 1:\n",[m
+[31m-      "No good Wikipedia Search Result was found\n",[m
+[31m-      "\n",[m
+[31m-      "--- First, LangChain is a framework, so I should probably start by explaining its role in building the agent. Then, LangGraph is part of LangChain, maybe for managing workflows or state. RAG is the Retrieval-Augmented Generation part, which involves combining retrieval and generation steps. External model providers like OpenAI or Anthropic would be for the actual model inference. ---\n",[m
+[31m-      "\n",[m
+[31m-      "Doc 1:\n",[m
+[31m-      "Wikipedia retrieval failed: Expecting value: line 1 column 1 (char 0)\n",[m
+[31m-      "\n",[m
+[31m-      "--- The user wants to know how each component interacts. So each subtask should focus on one component's role and then their interactions. For example, first, what's LangChain's role in structuring the agent. Then RAG for knowledge retrieval. How LangGraph manages the agent's workflow. Integrating external models into the system. Then the data flow between components. Error handling and scalability aspects. Testing and deployment steps. Monitoring and logging. Security considerations. Finally, putting it all together into a production system. ---\n",[m
+[31m-      "\n",[m
+[31m-      "Doc 1:\n",[m
+[31m-      "Wikipedia retrieval failed: Expecting value: line 1 column 1 (char 0)\n",[m
+[31m-      "\n",[m
+[31m-      "--- Each subtask should be a concise, searchable phrase. Let me list them out step by step without explanations. Make sure each line is a separate task and they cover all parts mentioned. Check for any missing components or interactions. Maybe also include how the external models are used with LangChain. And ensure the order makes sense from setup to deployment. ---\n",[m
+[31m-      "\n",[m
+[31m-      "Doc 1:\n",[m
+[31m-      "Wikipedia retrieval failed: Expecting value: line 1 column 1 (char 0)\n",[m
+[31m-      "\n",[m
+[31m-      "--- </think> ---\n",[m
+[31m-      "\n",[m
+[31m-      "Doc 1:\n",[m
+[31m-      "Wikipedia retrieval failed: Expecting value: line 1 column 1 (char 0)\n",[m
+[31m-      "\n",[m
+[31m-      "--- Define the role of LangChain in structuring the AI agent's workflow ---\n",[m
+[31m-      "\n",[m
+[31m-      "Doc 1:\n",[m
+[31m-      "Wikipedia retrieval failed: Expecting value: line 1 column 1 (char 0)\n",[m
+[31m-      "\n",[m
+[31m-      "--- Explain how RAG enhances the agent's knowledge retrieval and response generation ---\n",[m
+[31m-      "\n",[m
+[31m-      "Doc 1:\n",[m
+[31m-      "Wikipedia retrieval failed: Expecting value: line 1 column 1 (char 0)\n",[m
+[31m-      "\n",[m
+[31m-      "--- Clarify LangGraph's purpose in managing state and control flow within the agent ---\n",[m
+[31m-      "\n",[m
+[31m-      "Doc 1:\n",[m
+[31m-      "Wikipedia retrieval failed: Expecting value: line 1 column 1 (char 0)\n",[m
+[31m-      "\n",[m
+[31m-      "--- Outline integration of external model providers like OpenAI or Anthropic for inference ---\n",[m
+[31m-      "\n",[m
+[31m-      "Doc 1:\n",[m
+[31m-      "Wikipedia retrieval failed: Expecting value: line 1 column 1 (char 0)\n",[m
+[31m-      "\n",[m
+[31m-      "--- Detail the data flow between RAG components and LangChain agents ---\n",[m
+[31m-      "\n",[m
+[31m-      "Doc 1:\n",[m
+[31m-      "Wikipedia retrieval failed: Expecting value: line 1 column 1 (char 0)\n",[m
+[31m-      "\n",[m
+[31m-      "--- Describe error handling and fallback strategies for external API failures ---\n",[m
+[31m-      "\n",[m
+[31m-      "Doc 1:\n",[m
+[31m-      "Wikipedia retrieval failed: Expecting value: line 1 column 1 (char 0)\n",[m
+[31m-      "\n",[m
+[31m-      "--- Specify how to modularize components for scalability and maintainability ---\n",[m
+[31m-      "\n",[m
+[31m-      "Doc 1:\n",[m
+[31m-      "Wikipedia retrieval failed: Expecting value: line 1 column 1 (char 0)\n",[m
+[31m-      "\n",[m
+[31m-      "--- Explain logging and monitoring practices for production deployment ---\n",[m
+[31m-      "\n",[m
+[31m-      "Doc 1:\n",[m
+[31m-      "Wikipedia retrieval failed: Expecting value: line 1 column 1 (char 0)\n",[m
+[31m-      "\n",[m
+[31m-      "--- Address security considerations for API keys and sensitive data ---\n",[m
+[31m-      "\n",[m
+[31m-      "Doc 1:\n",[m
+[31m-      "Wikipedia retrieval failed: Expecting value: line 1 column 1 (char 0)\n",[m
+[31m-      "\n",[m
+[31m-      "--- Outline steps to test and validate the agent's reliability under load ---\n",[m
+[31m-      "\n",[m
+[31m-      "Doc 1:\n",[m
+[31m-      "Wikipedia retrieval failed: Expecting value: line 1 column 1 (char 0)\n",[m
+[31m-      "\n",[m
+[31m-      "--- Define deployment strategies for containerized or serverless environments ---\n",[m
+[31m-      "\n",[m
+[31m-      "Doc 1:\n",[m
+[31m-      "Wikipedia retrieval failed: Expecting value: line 1 column 1 (char 0)\n",[m
+[31m-      "\n",[m
+[31m-      "--- Highlight methods to update and maintain RAG knowledge sources dynamically ---\n",[m
+[31m-      "\n",[m
+[31m-      "Doc 1:\n",[m
+[31m-      "Wikipedia retrieval failed: Expecting value: line 1 column 1 (char 0)\n",[m
+[31m-      "\n",[m
+[31m-      "--- Clarify how user inputs trigger specific LangGraph subgraphs ---\n",[m
+[31m-      "\n",[m
+[31m-      "Doc 1:\n",[m
+[31m-      "Wikipedia retrieval failed: Expecting value: line 1 column 1 (char 0)\n",[m
+[31m-      "\n",[m
+[31m-      "--- Explain model selection and switching between external providers ---\n",[m
+[31m-      "\n",[m
+[31m-      "Doc 1:\n",[m
+[31m-      "Wikipedia retrieval failed: Expecting value: line 1 column 1 (char 0)\n",[m
+[31m-      "\n",[m
+[31m-      "--- Detail performance optimization techniques for real-time inference ---\n",[m
+[31m-      "\n",[m
+[31m-      "Doc 1:\n",[m
+[31m-      "Wikipedia retrieval failed: Expecting value: line 1 column 1 (char 0)\n",[m
+[31m-      "\n",[m
+[31m-      "========== FINAL ANSWER ==========\n",[m
+[31m-      "<think>\n",[m
+[31m-      "Okay, the user is asking how to build a production-ready AI agent using LangChain, LangGraph, RAG, and external model providers. Let me break down each component and their roles based on the context provided, even though some parts are missing because of the Wikipedia errors.\n",[m
+[31m-      "\n",[m
+[31m-      "First, LangChain is a framework for building AI applications. It helps structure the workflow by handling components like agents, memory, and prompts. It probably integrates with other parts like RAG and external models.\n",[m
+[31m-      "\n",[m
+[31m-      "RAG (Retrieval-Augmented Generation) is for combining information retrieval with generation. So when the agent needs to answer something, it first retrieves relevant documents from a knowledge base and then generates a response using a language model. This helps in providing accurate and up-to-date answers based on the latest data.\n",[m
+[31m-      "\n",[m
+[31m-      "LangGraph, which I think is part of the LangChain ecosystem, is mentioned as managing state and control flow. Maybe it's used to define the workflow steps and transitions between different states in the agent's processing. For example, handling user input, retrieving information, generating a response, and then moving to the next step.\n",[m
+[31m-      "\n",[m
+[31m-      "External model providers like OpenAI or Anthropic would be used for the actual language model inference. The agent would send queries to these models, get the results, and then use them in the response generation. Integration involves setting up API calls, handling authentication, and managing the responses.\n",[m
+[31m-      "\n",[m
+[31m-      "The data flow would involve the user input being processed by LangChain, triggering retrieval in RAG, passing the retrieved documents to the model via LangGraph's workflow, and then generating the output. Error handling is important here, like if the external API fails, the agent should have fallback strategies.\n",[m
+[31m-      "\n",[m
+[31m-      "Security aspects like API key management are crucial. They need to be stored securely, maybe using environment variables or secret management services. Also, logging and monitoring are necessary for production environments to track performance and errors.\n",[m
+[31m-      "\n",[m
+[31m-      "Deployment strategies could involve containerization with Docker or serverless functions. Testing under load ensures the agent can handle multiple requests. Updating the RAG knowledge sources dynamically might involve scheduled updates or real-time ingestion of new data.\n",[m
+[31m-      "\n",[m
+[31m-      "Putting it all together, the components work in a pipeline where LangChain structures the workflow, LangGraph manages the state transitions, RAG handles retrieval and generation, and external models provide the inference power. Each part interacts closely to form a cohesive agent that can be scaled and maintained in production.\n",[m
+[31m-      "</think>\n",[m
+[31m-      "\n",[m
+[31m-      "To build a production-ready AI agent using **LangChain**, **LangGraph**, **RAG**, and external model providers, the components must work synergistically. Below is a structured explanation of their roles and interactions:\n",[m
+[31m-      "\n",[m
+[31m-      "---\n",[m
+[31m-      "\n",[m
+[31m-      "### **1. LangChain: Workflow Structuring**\n",[m
+[31m-      "- **Role**: LangChain provides a framework to structure the agent's workflow, manage memory (e.g., chat history), and interface with external tools.\n",[m
+[31m-      "- **Key Features**:\n",[m
+[31m-      "  - **Agents**: Define decision-making logic (e.g., when to invoke RAG or external models).\n",[m
+[31m-      "  - **Prompts and Templates**: Customize inputs to models.\n",[m
+[31m-      "  - **Memory**: Track conversation history for contextual responses.\n",[m
+[31m-      "- **Interaction**: LangChain acts as the \"orchestration layer,\" coordinating tasks like retrieval, generation, and API calls.\n",[m
+[31m-      "\n",[m
+[31m-      "---\n",[m
+[31m-      "\n",[m
+[31m-      "### **2. RAG: Knowledge Retrieval and Generation**\n",[m
+[31m-      "- **Role**: RAG enhances the agent’s knowledge by combining **retrieval** (from a database/vector store) with **generation** (using a language model).\n",[m
+[31m-      "- **Workflow**:\n",[m
+[31m-      "  1. User input is processed to extract queries.\n",[m
+[31m-      "  2. **Retrieval**: Relevant documents are fetched from a knowledge base (e.g., via vector similarity).\n",[m
+[31m-      "  3. **Generation**: Documents and user input are passed to a model to generate a response.\n",[m
+[31m-      "- **Integration with LangChain**: RAG modules are plugged into LangChain agents via `RetrievalQA` chains or custom callbacks.\n",[m
+[31m-      "\n",[m
+[31m-      "---\n",[m
+[31m-      "\n",[m
+[31m-      "### **3. LangGraph: State and Control Flow**\n",[m
+[31m-      "- **Role**: LangGraph manages the agent’s **state transitions** (e.g., switching between tasks) and defines **control flow** (e.g., conditional logic).\n",[m
+[31m-      "- **Example Use Case**:\n",[m
+[31m-      "  - A subgraph handles user authentication before allowing access to sensitive data.\n",[m
+[31m-      "  - Another subgraph routes queries to RAG or external models based on input type.\n",[m
+[31m-      "- **Interaction**: LangGraph acts as a **workflow engine**, triggering specific subgraphs based on user input or internal states.\n",[m
+[31m-      "\n",[m
+[31m-      "---\n",[m
+[31m-      "\n",[m
+[31m-      "### **4. External Model Providers (e.g., OpenAI, Anthropic)**\n",[m
+[31m-      "- **Role**: These providers supply inference capabilities via APIs.\n",[m
+[31m-      "- **Integration**:\n",[m
+[31m-      "  - Use LangChain’s `LLM` or `ChatModel` classes to interface with models.\n",[m
+[31m-      "  - Example: `OpenAI(model_name=\"gpt-4\")` for generation tasks.\n",[m
+[31m-      "- **Fallback Strategies**:\n",[m
+[31m-      "  - Implement retry logic or switch to a backup model (e.g., Hugging Face) if the primary API fails.\n",[m
+[31m-      "\n",[m
+[31m-      "---\n",[m
+[31m-      "\n",[m
+[31m-      "### **5. Data Flow Between Components**\n",[m
+[31m-      "1. **User Input** → LangChain agent (for task routing).\n",[m
+[31m-      "2. Agent triggers RAG for retrieval if needed.\n",[m
+[31m-      "3. Retrieved documents + user input → External model for generation.\n",[m
+[31m-      "4. Generated response → Returned to user or passed to LangGraph for next steps.\n",[m
+[31m-      "\n",[m
+[31m-      "---\n",[m
+[31m-      "\n",[m
+[31m-      "### **6. Production Considerations**\n",[m
+[31m-      "- **Error Handling**: Wrap API calls in try-catch blocks with fallback responses (e.g., \"Service unavailable\").\n",[m
+[31m-      "- **Security**: Store API keys in environment variables or secret managers (e.g., AWS Secrets Manager).\n",[m
+[31m-      "- **Monitoring**: Use tools like Prometheus or LangChain’s built-in logging to track latency, errors, and usage.\n",[m
+[31m-      "- **Deployment**: Containerize the agent with Docker or deploy serverless (e.g., AWS Lambda) for scalability.\n",[m
+[31m-      "\n",[m
+[31m-      "---\n",[m
+[31m-      "\n",[m
+[31m-      "### **7. Dynamic Knowledge Updates**\n",[m
+[31m-      "- Periodically update the RAG knowledge base using scheduled jobs or real-time ingestion (e.g., webhooks from a CMS).\n",[m
+[31m-      "- Use vector stores like FAISS or Pinecone to index new data efficiently.\n",[m
+[31m-      "\n",[m
+[31m-      "---\n",[m
+[31m-      "\n",[m
+[31m-      "### **8. Testing and Validation**\n",[m
+[31m-      "- **Unit Tests**: Validate individual components (e.g., retrieval accuracy).\n",[m
+[31m-      "- **Load Testing**: Simulate high traffic with tools like Locust to ensure reliability.\n",[m
+[31m-      "- **Canary Deployments**: Roll out changes gradually to a subset of users.\n",[m
+[31m-      "\n",[m
+[31m-      "---\n",[m
+[31m-      "\n",[m
+[31m-      "### **Missing Context**\n",[m
+[31m-      "The retrieved context lacked specific details on:\n",[m
+[31m-      "- **LangGraph’s API or implementation specifics**.\n",[m
+[31m-      "- **Advanced LangChain features** (e.g., multi-agent collaboration).\n",[m
+[31m-      "- **Optimization techniques** (e.g., caching, batching requests).\n",[m
+[31m-      "\n",[m
+[31m-      "---\n",[m
+[31m-      "\n",[m
+[31m-      "### **Summary**\n",[m
+[31m-      "The agent leverages **LangChain** to structure workflows, **RAG** for contextual knowledge, **LangGraph** to manage state transitions, and **external models** for inference. Together, they form a scalable, production-ready system capable of dynamic, context-aware responses. Security, error handling, and monitoring are critical for stability in production.\n",[m
+[31m-      "\n",[m
+[31m-      "========== REFLECTION ==========\n",[m
+[31m-      "PASS\n",[m
+[31m-      "\n",[m
+[31m-      "========== ATTEMPTS ==========\n",[m
+[31m-      "0\n"[m
+[31m-     ][m
+[31m-    }[m
+[31m-   ],[m
+[32m+[m[32m   "outputs": [],[m
+    "source": [[m
+     "\n",[m
+     "# 14. Test\n",[m
